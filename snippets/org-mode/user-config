@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: user-config
+# key: uc
+# --
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+$1
+#+END_SRC
+

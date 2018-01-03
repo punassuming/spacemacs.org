@@ -1,0 +1,66 @@
+#+TITLE: Spacemacs tangled user configuration
+#+STARTUP: headlines
+#+STARTUP: nohideblocks
+#+STARTUP: noindent
+#+OPTIONS: toc:4 h:4
+#+PROPERTY: header-args:emacs-lisp :comments link
+
+* Introduction
+  This is a tangled user-init and user-config file for spacemacs. Place the
+  following code in your =~/.spacemacs.d/init.el= file.
+
+** init.el  
+   
+#+BEGIN_SRC emacs-lisp :tangle no
+  (defun dotspacemacs/user-init ()
+    ;; tangle without actually loading org
+    (let ((src (concat dotspacemacs-directory "spacemacs.org"))
+          (ui (concat dotspacemacs-directory "user-init.el"))
+          (uc (concat dotspacemacs-directory "user-config.el")))
+      (when (or (file-newer-than-file-p src ui) (file-newer-than-file-p src uc))
+        (call-process
+         (concat invocation-directory invocation-name)
+         nil nil t
+         "-q" "--batch" "--eval" "(require 'ob-tangle)"
+         "--eval" (format "(org-babel-tangle-file \"%s\")" src)))
+      (load-file ui)))
+
+  (defun dotspacemacs/user-config ()
+    (load-file (concat dotspacemacs-directory "user-config.el")))
+
+#+END_SRC
+
+** spacemacs.org  
+   
+To add configuration options before Spacemacs loads, insert the following kind
+of src block in your spacemacs.org file
+
+#+BEGIN_SRC emacs-lisp :tangle user-init.el
+#+END_SRC
+
+Alternatively, if the block should be loaded after Spacemacs loads, insert the
+following test block
+
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+#+END_SRC
+
+* Helper Functions
+
+** Yasnippet creation
+
+To help with creation of your text blocks, there are two snippets defined in the
+local snippet directory =~/.spacemacs.d/snippets/org-mode/= folder.
+
+To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =user-config= file.
+
+** Find this file
+   Create binding to spacemacs.org file
+
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (defun spacemacs/find-config-file ()
+    (interactive)
+    (find-file (concat dotspacemacs-directory "/spacemacs.org")))
+
+  (spacemacs/set-leader-keys "fec" 'spacemacs/find-config-file)
+
+#+END_SRC

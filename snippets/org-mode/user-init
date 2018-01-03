@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: user-init
+# key: ui
+# --
+#+BEGIN_SRC emacs-lisp :tangle user-init.el
+$1
+#+END_SRC
+

@@ -349,7 +349,14 @@ A function to get to this spacemacs.org file.
     (interactive)
     (find-file (concat dotspacemacs-directory "/spacemacs.org")))
 
-  (spacemacs/set-leader-keys "fec" 'spacemacs/find-config-file)
+  (delete* '("\\`SPC f e c\\'") which-key-replacement-alist :test #'equal :key #'car)
+  (spacemacs|spacebind 
+   :global 
+   (("f" "Files" 
+     ("e" "Emacs/Spacemacs" 
+      ("c" spacemacs/find-config-file "Open Spacemacs config")
+      ("C" spacemacs/recompile-elpa "Recompile packages")
+      ))))
 #+END_SRC
 
 * Local Variables :ARCHIVE:

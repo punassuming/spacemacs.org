@@ -1,0 +1,27 @@
+* Spacemacs configuration in a structured org-mode file
+This repo creates a template for your spacemacs config to allow configuration within a structured =org-mode= file. It also becomes the default place where to store your private configuration layers.
+
+** Installation
+Clone this repo as your =~/.spacemacs.d= directory.
+
+#+begin_example
+  git clone https://github.com/ralesi/spacemacs.org.git ~/.spacemacs.d
+#+end_example
+
+Start up Spacemacs and it will use the default settings as read in =spacemacs.org=. If you would like to use your existing settings, port them into =spacemacs.org= under the =dotspacemacs/layers= and =dotspacemacs/init= headings, otherwise the default settings will be used.
+
+** Layer configuration
+To create a new configuration layer:
+
+#+begin_example
+  SPC SPC configuration-layer/create-layer RET
+#+end_example
+
+Then enter the name of your configuration in the prompt.
+
+A directory named after the created configuration layer will be created here along with template files within it (packages.el and extensions.el, more info on the meaning of those files can be found in the
+[[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#extensions-and-packages][documentation]]).
+
+Each created file has further guidance written in them.
+
+Once the configuration is done, restart Emacs to load, install and configure your layer.

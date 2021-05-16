@@ -359,6 +359,17 @@ A function to get to this spacemacs.org file.
       ))))
 #+END_SRC
 
+** Auto-indent tangled files.
+Inspired from the result of [[https://stackoverflow.com/questions/24297597/any-way-to-make-org-babel-properly-indent-noweb-tangled-code][this StackExchange post]]. A more detailed log of this was found in [[https://jamesaimonetti.com/posts/formatting-tangled-output-in-org-mode/][this blog post]]. Gone are the days of unsightly tangled files.
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (defun spacemacs/tangle-cleanup()
+    (progn
+      (indent-region (point-min) (point-max))
+      (save-buffer))
+    )
+  (add-hook 'org-babel-post-tangle-hook 'spacemacs/tangle-cleanup())
+#+END_SRC
+
 * Local Variables :ARCHIVE:
 # Local Variables:
 # eval: (add-hook 'after-save-hook (lambda ()(org-babel-tangle)) nil t)
